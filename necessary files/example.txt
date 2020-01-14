@@ -1,0 +1,14 @@
+program
+var ,i,a,b,c,d:real
+begin
+a=.2E+1
+read(,b,c,d)
+for i=1 to 10 step 1.5E-2
+if [a>b+2] and [c<d]
+a=a*d-(b-i)*2
+else
+a=c/3-4
+endif
+next
+write(,a,b,c,d)
+end

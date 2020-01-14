@@ -1,0 +1,197 @@
+﻿<Window x:Class="LR01.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LR01"
+        mc:Ignorable="d"
+        Title="Транслятор" Height="650" Width="1079.4">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ToolBar Grid.Row="0">            
+            <Button x:Name="runButton" Click="runButton_Click">Run</Button>            
+        </ToolBar>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <RichTextBox x:Name="workField" 
+                         Grid.Row="1" 
+                         Grid.Column="0" 
+                         FontSize="12" 
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Stretch" 
+                         Margin="0,5,0,0" 
+                         Block.LineHeight="8" 
+            />
+            <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+            <TabControl x:Name="tabControl" 
+                        Grid.Column="2" 
+                        HorizontalAlignment="Stretch"  
+                        Margin="10,10,0,0" 
+                        VerticalAlignment="Stretch">
+                <TabItem Header="Лексеми">
+                    <Grid Background="#FFE5E5E5">
+                        <DataGrid AutoGenerateColumns="False"                             
+                              HorizontalAlignment="Stretch" 
+                              Name="lexGrid" 
+                              VerticalAlignment="Stretch">
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="лексема" Binding="{Binding Path=Name}" MinWidth="150" />
+                                <DataGridTextColumn Header="код" Binding="{Binding Path=Id}" MinWidth="50" />
+                                <DataGridTextColumn Header="розділювач" Binding="{Binding Path=IsSplitter}" MinWidth="50" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Класи">
+                    <Grid Background="#FFE5E5E5">
+                        <DataGrid AutoGenerateColumns="False"                             
+                              HorizontalAlignment="Stretch" 
+                              Name="classGrid" 
+                              VerticalAlignment="Stretch">
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="символ" Binding="{Binding Path=Symbol}" MinWidth="150" />
+                                <DataGridTextColumn Header="клас" Binding="{Binding Path=Class}" MinWidth="50" />                                
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Ідентифікатори">
+                    <Grid Background="#FFE5E5E5">
+                        <DataGrid AutoGenerateColumns="False"                             
+                              HorizontalAlignment="Stretch" 
+                              Name="identificatorGrid" 
+                              VerticalAlignment="Stretch">
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="ідентифікатор" Binding="{Binding Path=Name}" MinWidth="150" />
+                                <DataGridTextColumn Header="індекс" Binding="{Binding Path=Index}" MinWidth="50" />
+                                <DataGridTextColumn Header="значення" Binding="{Binding Path=Value}" MinWidth="150" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Константи">
+                    <Grid Background="#FFE5E5E5">
+                        <DataGrid AutoGenerateColumns="False"                             
+                              HorizontalAlignment="Stretch" 
+                              Name="constantGrid" 
+                              VerticalAlignment="Stretch">
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="константа" Binding="{Binding Path=Name}" MinWidth="150" />
+                                <DataGridTextColumn Header="індекс" Binding="{Binding Path=Index}" MinWidth="50" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Мітки">
+                    <Grid Background="#FFE5E5E5">
+                        <DataGrid AutoGenerateColumns="False"                             
+                              HorizontalAlignment="Stretch" 
+                              Name="labelGrid" 
+                              VerticalAlignment="Stretch">
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="мітки" Binding="{Binding Path=Name}" MinWidth="150" />
+                                <DataGridTextColumn Header="індекс" Binding="{Binding Path=Index}" MinWidth="50" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Вихідна таблиця">
+                    <Grid Background="#FFE5E5E5">
+                        <DataGrid AutoGenerateColumns="False"                             
+                              HorizontalAlignment="Stretch" 
+                              Name="outputGrid" 
+                              VerticalAlignment="Stretch">
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="рядок" Binding="{Binding Path=Line}" MinWidth="50" />
+                                <DataGridTextColumn Header="назва" Binding="{Binding Path=Name}" MinWidth="50" />
+                                <DataGridTextColumn Header="код лексеми або класа" Binding="{Binding Path=Id}" MinWidth="50" />
+                                <DataGridTextColumn Header="індекс ідентифікатора або класу" Binding="{Binding Path=Index}" MinWidth="50" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Таблиця розбору">
+                    <Grid Background="#FFE5E5E5">
+                        <DataGrid AutoGenerateColumns="False"                             
+                              HorizontalAlignment="Stretch" 
+                              Name="resultGrid" 
+                              VerticalAlignment="Stretch">
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="№" Binding="{Binding Path=Number}" MinWidth="20" />
+                                <DataGridTextColumn Header="стек" Binding="{Binding Path=Stack}" MinWidth="150" />
+                                <DataGridTextColumn Header="зн" Binding="{Binding Path=Symbol}" MinWidth="5" />
+                                <DataGridTextColumn Header="вхідний ланцюг" Binding="{Binding Path=InputChain}" MinWidth="150" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="ПОЛІЗ">
+                    <Grid Background="#FFE5E5E5">
+                        <Grid.RowDefinitions>                            
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <DataGrid AutoGenerateColumns="False"                             
+                              HorizontalAlignment="Stretch" 
+                              Name="polirGrid" 
+                              VerticalAlignment="Stretch">
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Header="ПОЛІЗ" Binding="{Binding Path=PolirStr}" MinWidth="100" />
+                                    <DataGridTextColumn Header="Параметр" Binding="{Binding Path=LoopParametr}" MinWidth="20" />
+                                    <DataGridTextColumn Header="Признак" Binding="{Binding Path=LoopSign}" MinWidth="20" />
+                                    <DataGridTextColumn Header="стек" Binding="{Binding Path=StackStr}" MinWidth="150" />
+                                    <DataGridTextColumn Header="вхідний ланцюг" Binding="{Binding Path=InputChainStr}" MinWidth="150" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <RichTextBox x:Name="polirField" 
+                                         FontSize="12" 
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Stretch" 
+                                         Margin="0,0,0,0" 
+                                         Block.LineHeight="6" 
+                                         HorizontalScrollBarVisibility="Auto"
+                                         IsReadOnly="True"/>
+                            
+                        </Grid>
+                        
+                    </Grid>
+                    
+                </TabItem>
+            </TabControl>
+            <!--<TextBlock Grid.Row="0" Grid.Column="2" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>-->
+            
+        </Grid>
+        <GridSplitter Grid.Row="2" Height="5" HorizontalAlignment="Stretch" />
+        <Grid Grid.Row="3">
+            <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>-->
+
+
+            <RichTextBox x:Name="errorField" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,0,0,16" Block.LineHeight="6" IsReadOnly="True"/>
+        </Grid>
+
+
+
+
+
+    </Grid>
+</Window>
